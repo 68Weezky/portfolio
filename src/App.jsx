@@ -11,7 +11,7 @@ import { SITE, SKILLS, PROJECTS, TIMELINE } from './data';
 import './styles.css';
 
 function App() {
-  const profileImage = './media/profile photo.jpg';
+  const profileImage = '/media/profile photo.jpg';
 
   return (
     <>

@@ -69,6 +69,22 @@ src/
 
 - The original `build.py` script is no longer needed as React handles the rendering
 - All data is in `src/data.js` - edit that file to update content
-- Media files should remain in the `media/` folder at the root
+- **Media files must be in the `public/media/` folder** (not `media/` at root) - they will be copied to `dist/` during build
 - The CSS file is identical to the original, just moved to `src/`
+
+## Deployment
+
+### Netlify
+The project includes a `netlify.toml` configuration file. When deploying to Netlify:
+1. Connect your GitHub repository
+2. Netlify will automatically detect the build settings from `netlify.toml`
+3. Build command: `npm run build`
+4. Publish directory: `dist`
+
+### Other Platforms
+For other hosting platforms (Vercel, GitHub Pages, etc.):
+- Build command: `npm run build`
+- Output directory: `dist`
+- Make sure the platform runs the build command before deploying
+- Static assets (images, PDFs) are in `public/` and will be served from the root
 

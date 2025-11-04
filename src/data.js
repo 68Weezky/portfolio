@@ -14,7 +14,7 @@ export const SITE = {
   socials: [
     { label: "GitHub", href: "https://github.com/68Weezky" },
     { label: "LinkedIn", href: "https://linkedin.com/in/leon-muyesu" },
-    { label: "Resume", href: "./media/CV-LEON MUYESU.pdf" },
+    { label: "Resume", href: "/media/CV-LEON MUYESU.pdf" },
   ],
 };
 
@@ -60,7 +60,7 @@ export const SKILLS = [
 
 export const PROJECTS = [
   {
-    thumb: "./media/portfolio.jpg",
+    thumb: "/media/portfolio.jpg",
     thumbAlt: "Portfolio Website Interface",
     title: "Portfolio Website",
     desc: "Modern, responsive portfolio website built with React and Vite. Features dark/light theme toggle, smooth animations, and a clean component-based architecture.",
@@ -69,7 +69,7 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/portfolio", 
   },
   {
-    thumb: "./media/hotel-mgt.jpg",
+    thumb: "/media/hotel-mgt.jpg",
     thumbAlt: "Hotel Management System Interface",
     title: "The Whitehouse Lounge",
     desc: "Comprehensive hotel management system for reservations, guest services, and operations.",
@@ -78,7 +78,7 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/hotelmgt",
   },
   {
-    thumb: "./media/jobkonekt.jpg",
+    thumb: "/media/jobkonekt.jpg",
     thumbAlt: "Marketplace Platform Interface",
     title: "JobKonekt",
     desc: "Platform bridging the gap between skilled traders and their clientele in the marketplace.",
@@ -87,7 +87,7 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/jobKonekt",
   },
   {
-    thumb: "./media/field-hockey.jpg",
+    thumb: "/media/field-hockey.jpg",
     thumbAlt: "Hockey Sports Analytics Dashboard",
     title: "HockeyKE",
     desc: "Sports analytics application for grassroots hockey teams in Kenya.",
