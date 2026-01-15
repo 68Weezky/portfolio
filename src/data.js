@@ -112,9 +112,15 @@ export const TIMELINE = [
       "Collaborated with a colleague to build a web application that served the purpose of easing the medical processes of patients in hospitals; from booking appointments to doctors making referrals.",
   },
   {
-    heading: "B.Sc. Computer Science — Multimedia University of Kenya",
+    heading: "BSc. Computer Science — Multimedia University of Kenya",
     meta: "September 2021 - October 2025",
     text:
-      "Specialization in full‑stack web development, with electives in distributed systems and HCI.",
+      "Specialization in full‑stack web development, with electives in distributed systems and HCI. Graduated with a Second Class Honours(upper division) in Computer Science.",
+  },
+  {
+    heading: "High School — Nairobi School",
+    meta: "January 2017 - April 2021",
+    text:
+      "Completed my high school education with a passion for technology and a strong foundation in science and mathematics. Scored an A-(minus) in the Kenya Certificate of Secondary Education(KCSE) examination.",
   },
 ];
