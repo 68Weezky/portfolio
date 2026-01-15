@@ -1,13 +1,53 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { useEffect, useRef } from 'react';
 
 function ProjectCard({ project }) {
   const [cardRef, isInView] = useIntersectionObserver({ threshold: 0.16 });
+  const cardElementRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardElementRef.current;
+    if (!card) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const handleMouseMove = (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 15;
+      const rotateY = (centerX - x) / 15;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+    };
+
+    const handleMouseLeave = () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   return (
     <article
-      ref={cardRef}
+      ref={(node) => {
+        cardRef.current = node;
+        cardElementRef.current = node;
+      }}
       className={`project-card reveal ${isInView ? 'in-view' : ''}`}
       tabIndex="0"
+      style={{ transition: 'transform 0.1s ease-out' }}
     >
       <div className="project-thumb">
         <img src={project.thumb} alt={project.thumbAlt} />

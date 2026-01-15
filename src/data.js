@@ -13,7 +13,7 @@ export const SITE = {
   email: "leonmuyesu15@gmail.com",
   socials: [
     { label: "GitHub", href: "https://github.com/68Weezky" },
-    { label: "LinkedIn", href: "https://linkedin.com/in/leon-muyesu" },
+    { label: "LinkedIn", href: "www.linkedin.com/in/leon-muyesu-6314a1273" },
     { label: "Resume", href: "/media/CV-LEON MUYESU.pdf" },
   ],
 };
@@ -30,6 +30,7 @@ export const SKILLS = [
       "Svelte-kit",
       "Bootstrap",
       "Tailwind CSS",
+      "Vanilla CSS",
       "Responsive UI",
       "UI/UX Design",
     ],
@@ -46,6 +47,7 @@ export const SKILLS = [
       "MongoDB",
       "PostgreSQL",
       "Django",
+      "Vue.js",
       "Node.js",
       "Express",
       "REST APIs",
@@ -54,7 +56,7 @@ export const SKILLS = [
   {
     title: "Tools",
     progress: 80,
-    tags: ["Git", "GitHub", "Docker", "VS Code", "Helix", "PyCharm", "Sublime Text"],
+    tags: ["Git", "GitHub", "Vite", "Netlify", "Render", "Figma", "Docker", "VS Code", "Helix", "PyCharm", "Sublime Text"],
   },
 ];
 
