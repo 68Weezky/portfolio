@@ -14,7 +14,7 @@ export const SITE = {
   socials: [
     { label: "GitHub", href: "https://github.com/68Weezky" },
     { label: "LinkedIn", href: "https://linkedin.com/in/leon-muyesu-6314a1273" },
-    { label: "Resume", href: "/media/CV-LEON MUYESU.pdf" },
+    { label: "Resume", href: "/media/CV_LEON MUYESU.pdf" },
   ],
 };
 
