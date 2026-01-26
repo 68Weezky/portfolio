@@ -97,6 +97,15 @@ export const PROJECTS = [
     demo: null,
     code: "https://github.com/68Weezky/analytics",
   },
+  {
+    thumb: "/media/ai-query.jpeg",
+    thumbAlt: "AI Query Interface Application",
+    title: "AI Query Interface",
+    desc: "Full-stack web application providing an interface for AI-powered queries. FastAPI backend with Google Gemini LLM integration and Next.js responsive frontend with real-time formatted responses.",
+    tags: ["FastAPI", "Python", "Next.js", "TypeScript", "TailwindCSS", "Google Gemini API"],
+    demo: null,
+    code: "https://github.com/68Weezky/AI-Query-Interface",
+  },
 ];
 
 export const TIMELINE = [
