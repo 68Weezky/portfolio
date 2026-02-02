@@ -106,6 +106,15 @@ export const PROJECTS = [
     demo: null,
     code: "https://github.com/68Weezky/AI-Query-Interface",
   },
+  {
+    thumb: "/media/focus-flow.jpg",
+    thumbAlt: "Focus Flow - Pomodoro Task Management Dashboard",
+    title: "Focus Flow",
+    desc: "Modern task management application combining task tracking with the Pomodoro Technique. Features real-time timer with persistence, browser notifications, analytics dashboard with charts, and automated task status transitions.",
+    tags: ["React", "Node.js", "Express", "PostgreSQL", "Prisma", "Recharts", "JWT Auth", "Axios"],
+    demo: null,
+    code: "https://github.com/68Weezky/focus_flow",
+  },
 ];
 
 export const TIMELINE = [
