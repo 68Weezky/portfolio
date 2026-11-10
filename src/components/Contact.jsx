@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { SectionHeading } from './SectionHeading';
 
 const CONTACT_ENDPOINT = 'https://formspree.io/f/xrbaynqr';
 
@@ -73,8 +74,7 @@ export function Contact({ email }) {
   return (
     <section id="contact" className="alt" aria-label="Contact">
       <div className="container">
-        <h2 className="section-title">Get In Touch</h2>
-        <p className="section-sub">Have a project or role in mind? Let's talk.</p>
+        <SectionHeading title="Get In Touch" sub="Have a project or role in mind? Let's talk." />
         <div className="contact-grid">
           <div
             ref={formRef}
@@ -154,7 +154,11 @@ export function Contact({ email }) {
               )}
             </form>
           </div>
-          <div ref={contactRef} className={`reveal ${contactInView ? 'in-view' : ''}`}>
+          <div
+            ref={contactRef}
+            className={`reveal ${contactInView ? 'in-view' : ''}`}
+            style={{ '--i': 1 }}
+          >
             <h3>Let's build something great</h3>
             <p>
               I'm available for internships, full-time and freelance projects. I'm particularly

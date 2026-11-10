@@ -62,7 +62,7 @@ export const SKILLS = [
 
 export const PROJECTS = [
   {
-    thumb: "/media/portfolio.jpg",
+    thumb: "/media/portfolio.webp",
     thumbAlt: "Portfolio Website Interface",
     title: "Portfolio Website",
     desc: "Modern, responsive portfolio website built with React and Vite. Features dark/light theme toggle, smooth animations, and a clean component-based architecture.",
@@ -71,16 +71,16 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/portfolio", 
   },
   {
-    thumb: "/media/team-todo.png",
+    thumb: "/media/team-todo.webp",
     thumbAlt: "Team Todo - Team Task Management Dashboard",
     title: "Team Todo",
     desc: "Production-ready Django app for team task management with role-based access (Admin, Team Leader, Member). Features dashboards with charts, task CRUD, notifications, analytics, search/export, and deadline reminders.",
     tags: ["Django 5", "Python", "PostgreSQL", "Bootstrap 5", "Chart.js", "FullCalendar"],
-    demo: "https://team-todo-vxml.onrender.com/",
+    demo: null,
     code: "https://github.com/68Weezky/team_todo",
   },
   {
-    thumb: "/media/ai-query.jpeg",
+    thumb: "/media/ai-query.webp",
     thumbAlt: "AI Query Interface Application",
     title: "AI Query Interface",
     desc: "Full-stack web application providing an interface for AI-powered queries. FastAPI backend with Google Gemini LLM integration and Next.js responsive frontend with real-time formatted responses.",
@@ -89,7 +89,7 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/AI-Query-Interface",
   },
   {
-    thumb: "/media/focus-flow.jpg",
+    thumb: "/media/focus-flow.webp",
     thumbAlt: "Focus Flow - Pomodoro Task Management Dashboard",
     title: "Focus Flow",
     desc: "Modern task management application combining task tracking with the Pomodoro Technique. Features real-time timer with persistence, browser notifications, analytics dashboard with charts, and automated task status transitions.",
@@ -98,16 +98,16 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/focus_flow",
   },
   {
-    thumb: "/media/hotel-mgt.jpg",
+    thumb: "/media/hotel-mgt.webp",
     thumbAlt: "Hotel Management System Interface",
     title: "The Whitehouse Lounge",
-    desc: "Comprehensive hotel management system for reservations, guest services, and operations.",
-    tags: ["Python", "Django", "PostgreSQL"],
+    desc: "A Django and PostgreSQL hotel management system for a Kenyan lodge, bar and conference venue, covering bookings, billing with VAT, bar POS and stock, event scheduling, M-Pesa payments and reports, with role-based access and 97% test coverage.",
+    tags: ["Python", "Django", "PostgreSQL", "HTMX", "Alpine.js", "Tailwind CSS", "Chart.js", "pytest"],
     demo: null,
-    code: "https://github.com/68Weezky/hotelmgt",
+    code: "https://github.com/68Weezky/whl",
   },
   {
-    thumb: "/media/jobkonekt.jpg",
+    thumb: "/media/jobkonekt.webp",
     thumbAlt: "Marketplace Platform Interface",
     title: "JobKonekt",
     desc: "Platform bridging the gap between skilled traders and their clientele in the marketplace.",
@@ -116,7 +116,7 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/jobKonekt",
   },
   {
-    thumb: "/media/field-hockey.jpg",
+    thumb: "/media/field-hockey.webp",
     thumbAlt: "Hockey Sports Analytics Dashboard",
     title: "HockeyKE",
     desc: "Sports analytics application for grassroots hockey teams in Kenya.",

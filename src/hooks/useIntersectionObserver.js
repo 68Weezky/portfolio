@@ -1,28 +1,37 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export function useIntersectionObserver(options = {}) {
-  const elementRef = useRef(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+/**
+ * Fires once when the element scrolls into view.
+ *
+ * Options are destructured into primitives so the effect dependencies stay stable.
+ * (The previous version depended on the `options` object itself, which is a new object
+ * every render, so every component tore down and rebuilt its observer on each re-render.)
+ */
+export function useIntersectionObserver({ threshold = 0.12, rootMargin = '0px 0px -6% 0px' } = {}) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    const element = elementRef.current;
-    if (!element) return;
+    const el = ref.current;
+    if (!el || inView) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true);
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
         if (entry.isIntersecting) {
-          setIsIntersecting(true);
-          observer.unobserve(element);
+          setInView(true);
+          io.disconnect();
         }
-      });
-    }, options);
+      },
+      { threshold, rootMargin }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [threshold, rootMargin, inView]);
 
-    observer.observe(element);
-
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, [options]);
-
-  return [elementRef, isIntersecting];
+  return [ref, inView];
 }
