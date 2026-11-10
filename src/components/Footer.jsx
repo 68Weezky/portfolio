@@ -3,26 +3,17 @@ export function Footer({ name, socials }) {
 
   return (
     <footer aria-label="Footer">
-      <div
-        className="container"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '12px',
-        }}
-      >
+      <div className="container footer-inner">
         <div>
           © {currentYear} {name}. All rights reserved.
         </div>
         <div className="socials" aria-label="Social links">
-          {socials.map((social, idx) => (
+          {socials.map((social) => (
             <a
-              key={idx}
+              key={social.label}
               href={social.href}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               aria-label={social.label}
             >
               {social.label}

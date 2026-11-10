@@ -3,36 +3,60 @@ import { useTypingEffect } from '../hooks/useTypingEffect';
 
 export function Hero({ name, titleKicker, subtitle, heroPhrases }) {
   const typedText = useTypingEffect(heroPhrases);
-  const blobRef = useRef(null);
-  const cardRef = useRef(null);
+  const artRef = useRef(null);
 
+  // Parallax is driven by CSS custom properties (--mx, --my, --sy) and applied through the
+  // independent `translate` property in CSS. That means it no longer fights the floating
+  // keyframe animations (which use `transform`), and it's throttled to one write per frame.
   useEffect(() => {
-    const blob = blobRef.current;
-    const card = cardRef.current;
-    if (!blob || !card) return;
+    const art = artRef.current;
+    if (!art) return;
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    const handleMouseMove = (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 10;
-      const y = (e.clientY / window.innerHeight - 0.5) * 10;
-      blob.style.transform = `translate(${x * 1.2}px, ${y * 1.2}px)`;
-      card.style.transform = `translate(${x * -0.8}px, ${y * -0.8}px)`;
+    let raf = 0;
+    let mx = 0;
+    let my = 0;
+    let sy = 0;
+    let heroVisible = true;
+
+    const apply = () => {
+      raf = 0;
+      art.style.setProperty('--mx', mx.toFixed(2));
+      art.style.setProperty('--my', my.toFixed(2));
+      art.style.setProperty('--sy', sy.toFixed(2));
+    };
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(apply);
     };
 
-    const handleScroll = () => {
-      const s = window.scrollY * 0.06;
-      blob.style.translate = `0 ${s}px`;
-      card.style.translate = `0 ${s * -0.6}px`;
+    const onMove = (e) => {
+      if (!heroVisible) return;
+      mx = (e.clientX / window.innerWidth - 0.5) * 10;
+      my = (e.clientY / window.innerHeight - 0.5) * 10;
+      schedule();
+    };
+    const onScroll = () => {
+      if (!heroVisible) return;
+      sy = Math.min(window.scrollY, window.innerHeight) * 0.06;
+      schedule();
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Skip all work while the hero is off-screen.
+    const io = new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting;
+    });
+    io.observe(art);
+
+    if (canHover) window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
+      io.disconnect();
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -42,7 +66,7 @@ export function Hero({ name, titleKicker, subtitle, heroPhrases }) {
         <div>
           <div className="kicker">{titleKicker}</div>
           <h1 className="display">
-            Hi, I'm {name}
+            Hi, I'm <span className="grad-text">{name}</span>
             <br />
             <span className="typed" aria-live="polite">
               {typedText}
@@ -58,9 +82,12 @@ export function Hero({ name, titleKicker, subtitle, heroPhrases }) {
             </a>
           </div>
         </div>
-        <div className="hero-art" aria-hidden="true">
-          <div className="blob" ref={blobRef}></div>
-          <div className="device-card" ref={cardRef}>
+        <div className="hero-art" ref={artRef} aria-hidden="true">
+          <div className="blob"></div>
+          <span className="float-chip chip-a">Django</span>
+          <span className="float-chip chip-b">React</span>
+          <span className="float-chip chip-c">Node.js</span>
+          <div className="device-card">
             <div className="device-header">
               <div className="dot"></div>
               <div className="dot"></div>

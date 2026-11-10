@@ -1,4 +1,5 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { SectionHeading } from './SectionHeading';
 
 function TimelineEntry({ entry }) {
   const [entryRef, isInView] = useIntersectionObserver({ threshold: 0.16 });
@@ -13,14 +14,15 @@ function TimelineEntry({ entry }) {
 }
 
 export function Experience({ timeline }) {
+  const [lineRef, lineInView] = useIntersectionObserver({ threshold: 0.05 });
+
   return (
     <section id="experience" aria-label="Experience and Education">
       <div className="container">
-        <h2 className="section-title">Experience & Education</h2>
-        <p className="section-sub">A brief timeline of my journey</p>
-        <div className="timeline">
-          {timeline.map((entry, idx) => (
-            <TimelineEntry key={idx} entry={entry} />
+        <SectionHeading title="Experience & Education" sub="A brief timeline of my journey" />
+        <div ref={lineRef} className={`timeline ${lineInView ? 'in-view' : ''}`}>
+          {timeline.map((entry) => (
+            <TimelineEntry key={entry.heading} entry={entry} />
           ))}
         </div>
       </div>

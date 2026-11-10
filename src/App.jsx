@@ -7,26 +7,30 @@ import { Experience } from './components/Experience';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ScrollTop } from './components/ScrollTop';
+import { ScrollProgress } from './components/ScrollProgress';
 import { SITE, SKILLS, PROJECTS, TIMELINE } from './data';
 import './styles.css';
 
 function App() {
-  const profileImage = '/media/profile photo.jpeg';
+  const profileImage = '/media/profile-photo.webp';
 
   return (
     <>
+      <ScrollProgress />
       <Header name={SITE.name} profileImage={profileImage} />
-      <Hero
-        name={SITE.name}
-        titleKicker={SITE.title_kicker}
-        subtitle={SITE.subtitle}
-        heroPhrases={SITE.hero_phrases}
-      />
-      <About profileImage={profileImage} name={SITE.name} />
-      <Skills skills={SKILLS} />
-      <Projects projects={PROJECTS} />
-      <Experience timeline={TIMELINE} />
-      <Contact email={SITE.email} />
+      <main>
+        <Hero
+          name={SITE.name}
+          titleKicker={SITE.title_kicker}
+          subtitle={SITE.subtitle}
+          heroPhrases={SITE.hero_phrases}
+        />
+        <About profileImage={profileImage} name={SITE.name} />
+        <Skills skills={SKILLS} />
+        <Projects projects={PROJECTS} />
+        <Experience timeline={TIMELINE} />
+        <Contact email={SITE.email} />
+      </main>
       <Footer name={SITE.name} socials={SITE.socials} />
       <ScrollTop />
     </>

@@ -1,4 +1,5 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { SectionHeading } from './SectionHeading';
 
 export function About({ profileImage, name }) {
   const [avatarRef, avatarInView] = useIntersectionObserver({ threshold: 0.16 });
@@ -7,26 +8,24 @@ export function About({ profileImage, name }) {
   return (
     <section id="about" className="alt" aria-label="About">
       <div className="container">
-        <h2 className="section-title">About Me</h2>
-        <p className="section-sub">
-          A Computer Science graduate with 2+ years of experience specializing in full‑stack development
-        </p>
+        <SectionHeading
+          title="About Me"
+          sub="A Computer Science graduate with 2+ years of experience specializing in full‑stack development"
+        />
         <div className="about">
-          <div
-            ref={avatarRef}
-            className={`reveal ${avatarInView ? 'in-view' : ''}`}
-          >
+          <div ref={avatarRef} className={`reveal ${avatarInView ? 'in-view' : ''}`}>
             <div className="avatar-wrap">
               <img
                 src={profileImage}
                 alt={name}
                 width="220"
                 height="220"
-                style={{ borderRadius: '50%', objectFit: 'cover' }}
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
-          <div ref={textRef} className={`reveal ${textInView ? 'in-view' : ''}`}>
+          <div ref={textRef} className={`reveal ${textInView ? 'in-view' : ''}`} style={{ '--i': 1 }}>
             <p>
               I'm passionate about building user-centric products end‑to‑end — from designing intuitive
               interfaces to deploying scalable backends. My toolkit includes Python, Django,

@@ -8,19 +8,11 @@ export function ScrollTop() {
     if (!hero) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsVisible(!entry.isIntersecting);
-        });
-      },
+      ([entry]) => setIsVisible(!entry.isIntersecting),
       { threshold: 0.01 }
     );
-
     observer.observe(hero);
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   const scrollToTop = () => {
@@ -32,6 +24,7 @@ export function ScrollTop() {
       className={`scroll-top ${isVisible ? 'visible' : ''}`}
       onClick={scrollToTop}
       aria-label="Scroll to top"
+      tabIndex={isVisible ? 0 : -1}
     >
       ↑
     </button>

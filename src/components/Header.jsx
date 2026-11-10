@@ -1,68 +1,99 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme } from '../hooks/useTheme';
+
+const NAV = [
+  ['about', 'About'],
+  ['skills', 'Skills'],
+  ['projects', 'Projects'],
+  ['experience', 'Experience'],
+  ['contact', 'Contact'],
+];
 
 export function Header({ name, profileImage }) {
   const { toggleTheme, isLight } = useTheme();
+  const navRef = useRef(null);
   const underlineRef = useRef(null);
-  const [activeLink, setActiveLink] = useState(null);
+  const [active, setActive] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const links = document.querySelectorAll('.nav-link');
+  const moveUnderline = useCallback((id) => {
+    const nav = navRef.current;
     const underline = underlineRef.current;
-    if (!underline) return;
+    if (!nav || !underline) return;
+    const link = id && nav.querySelector(`a[href="#${id}"]`);
+    if (!link) {
+      underline.style.opacity = '0';
+      return;
+    }
+    const lr = link.getBoundingClientRect();
+    const nr = nav.getBoundingClientRect();
+    underline.style.opacity = '0.9';
+    underline.style.width = `${Math.max(24, lr.width)}px`;
+    underline.style.transform = `translateX(${lr.left - nr.left}px)`;
+  }, []);
 
-    const moveTo = (link) => {
-      const rect = link.getBoundingClientRect();
-      const parentRect = link.parentElement.parentElement.getBoundingClientRect();
-      const width = Math.max(24, rect.width);
-      underline.style.width = width + 'px';
-      underline.style.transform = `translateX(${rect.left - parentRect.left}px)`;
-    };
-
-    links.forEach((l) => {
-      l.addEventListener('mouseenter', () => moveTo(l));
-      l.addEventListener('focus', () => moveTo(l));
-    });
-
-    const sections = ['about', 'skills', 'projects', 'experience', 'contact'].map(
-      (id) => document.getElementById(id)
-    );
-    const sectionObserver = new IntersectionObserver(
+  // Scroll-spy: highlight the section nearest the middle of the viewport.
+  useEffect(() => {
+    const ids = ['hero', ...NAV.map(([id]) => id)];
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    const io = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) {
-          const link = Array.from(links).find(
-            (a) => a.getAttribute('href') === '#' + visible.target.id
-          );
-          if (link) {
-            moveTo(link);
-            setActiveLink(link);
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id === 'hero' ? null : entry.target.id);
           }
-        }
+        });
       },
-      { rootMargin: '-40% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
     );
-    sections.forEach((s) => s && sectionObserver.observe(s));
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
-    setTimeout(() => {
-      if (links[0]) moveTo(links[0]);
-    }, 300);
-
-    const handleResize = () => {
-      const current = document.querySelector('.nav-link[aria-current="page"]') || links[0];
-      if (current) moveTo(current);
+  // Keep the underline under the active link (also on resize).
+  useEffect(() => {
+    moveUnderline(active);
+    let raf = 0;
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => moveUnderline(active));
     };
-    window.addEventListener('resize', handleResize);
-
+    window.addEventListener('resize', onResize, { passive: true });
     return () => {
-      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [active, moveUnderline]);
+
+  // Header gets a stronger background/shadow after scrolling a little.
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      setScrolled(window.scrollY > 12);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
+  // Close the mobile menu with Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => e.key === 'Escape' && setMenuOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
+
   return (
-    <header className="site-header" aria-label="Main navigation">
+    <header className={`site-header ${scrolled ? 'scrolled' : ''}`} aria-label="Main navigation">
       <div className="container nav-inner">
         <a href="#hero" className="brand" aria-label="Home">
           <img
@@ -70,52 +101,65 @@ export function Header({ name, profileImage }) {
             alt={name}
             width="32"
             height="32"
+            fetchpriority="high"
+            decoding="async"
             style={{ borderRadius: '50%', objectFit: 'cover' }}
           />
           <span>{name}</span>
         </a>
-        <nav className="primary-nav" aria-label="Primary">
+
+        <nav
+          id="primary-nav"
+          ref={navRef}
+          className={`primary-nav ${menuOpen ? 'open' : ''}`}
+          aria-label="Primary"
+          onMouseLeave={() => moveUnderline(active)}
+        >
           <ul className="nav-list">
-            <li>
-              <a className="nav-link" href="#about">
-                About
-              </a>
-            </li>
-            <li>
-              <a className="nav-link" href="#skills">
-                Skills
-              </a>
-            </li>
-            <li>
-              <a className="nav-link" href="#projects">
-                Projects
-              </a>
-            </li>
-            <li>
-              <a className="nav-link" href="#experience">
-                Experience
-              </a>
-            </li>
-            <li>
-              <a className="nav-link" href="#contact">
-                Contact
-              </a>
-            </li>
+            {NAV.map(([id, label]) => (
+              <li key={id}>
+                <a
+                  className="nav-link"
+                  href={`#${id}`}
+                  aria-current={active === id ? 'page' : undefined}
+                  onMouseEnter={() => moveUnderline(id)}
+                  onFocus={() => moveUnderline(id)}
+                  onBlur={() => moveUnderline(active)}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
           <span className="nav-underline" ref={underlineRef} aria-hidden="true"></span>
         </nav>
+
         <div className="controls">
           <button
-            className="btn ghost"
+            className="btn ghost theme-btn"
             onClick={toggleTheme}
-            aria-pressed={isLight}
-            aria-label="Toggle dark mode"
+            aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
           >
-            {isLight ? 'Dark Mode' : 'Light Mode'}
+            <span aria-hidden="true">{isLight ? '☾' : '☀'}</span>
+            <span className="btn-label">{isLight ? 'Dark' : 'Light'}</span>
           </button>
-          <a className="btn primary" href="#projects">
+          <a className="btn primary work-btn" href="#projects">
             View Work
           </a>
+          <button
+            className="btn ghost menu-btn"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-expanded={menuOpen}
+            aria-controls="primary-nav"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span className={`burger ${menuOpen ? 'open' : ''}`} aria-hidden="true">
+              <i></i>
+              <i></i>
+              <i></i>
+            </span>
+          </button>
         </div>
       </div>
     </header>
