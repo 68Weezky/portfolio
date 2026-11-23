@@ -75,13 +75,22 @@ export const PROJECTS = [
     demo: "https://leonmuyesuportfolio.netlify.app/",
     code: "https://github.com/68Weezky/portfolio", 
   },
+    {
+    thumb: "/media/pos.webp",
+    thumbAlt: "Point of Sale System Full-Stack Application",
+    title: " POS-system",
+    desc: "A production-minded retail point-of-sale built from scratch. Cashiers ring up sales by searching or scanning products, apply role-limited discounts, take cash or simulated card payments, and print receipts. Managers get stock control, void and refund workflows, a sales dashboard, and date-filtered reports with CSV export. Administrators manage users and store settings.",
+    tags: ["React", "Vite", "Django", "Django REST Framework", "PostgreSQL", "Docker", "GitHub Actions"],
+    demo: "https://pos-rjbk.onrender.com/",
+    code: "https://github.com/68Weezky/pos-system", 
+  },
   {
     thumb: "/media/team-todo.webp",
     thumbAlt: "Team Todo - Team Task Management Dashboard",
     title: "Team Todo",
     desc: "Production-ready Django app for team task management with role-based access (Admin, Team Leader, Member). Features dashboards with charts, task CRUD, notifications, analytics, search/export, and deadline reminders.",
     tags: ["Django 5", "Python", "PostgreSQL", "Bootstrap 5", "Chart.js", "FullCalendar"],
-    demo: "https://team-todo-vxml.onrender.com/",
+    demo: null,
     code: "https://github.com/68Weezky/team_todo",
   },
   {
