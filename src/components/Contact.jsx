@@ -168,6 +168,16 @@ export function Contact({ email }) {
               <li>
                 Email: <a href={`mailto:${email}`}>{email}</a>
               </li>
+               <li>
+                  WhatsApp:{' '}
+                  <a
+                    href="https://wa.me/254794883394?text=Hi%20Leon%2C%20I%20found%20your%20portfolio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Chat with me
+                  </a>
+                </li>
               <li>Location: Anywhere, Remote‑friendly</li>
             </ul>
           </div>

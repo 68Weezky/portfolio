@@ -1,4 +1,6 @@
 // Portfolio data
+const WHATSAPP_NUMBER = "254794883394";
+
 export const SITE = {
   name: "Leon Muyesu",
   title_kicker: "Full‑Stack Developer",
@@ -14,6 +16,9 @@ export const SITE = {
   socials: [
     { label: "GitHub", href: "https://github.com/68Weezky" },
     { label: "LinkedIn", href: "https://linkedin.com/in/leon-muyesu-6314a1273" },
+    ...(WHATSAPP_NUMBER
+      ? [{ label: "WhatsApp", href: `https://wa.me/${WHATSAPP_NUMBER}` }]
+      : []),
     { label: "Resume", href: "/media/CV_LEON MUYESU.pdf" },
   ],
 };
@@ -71,21 +76,12 @@ export const PROJECTS = [
     code: "https://github.com/68Weezky/portfolio", 
   },
   {
-    thumb: "/media/pos.webp",
-    thumbAlt: "Point of Sale System Full-Stack Application",
-    title: " POS-system",
-    desc: "A production-minded retail point-of-sale built from scratch. Cashiers ring up sales by searching or scanning products, apply role-limited discounts, take cash or simulated card payments, and print receipts. Managers get stock control, void and refund workflows, a sales dashboard, and date-filtered reports with CSV export. Administrators manage users and store settings.",
-    tags: ["React", "Vite", "Django", "Django REST Framework", "PostgreSQL", "Docker", "GitHub Actions"],
-    demo: "https://pos-rjbk.onrender.com/",
-    code: "https://github.com/68Weezky/pos-system", 
-  },
-  {
     thumb: "/media/team-todo.webp",
     thumbAlt: "Team Todo - Team Task Management Dashboard",
     title: "Team Todo",
     desc: "Production-ready Django app for team task management with role-based access (Admin, Team Leader, Member). Features dashboards with charts, task CRUD, notifications, analytics, search/export, and deadline reminders.",
     tags: ["Django 5", "Python", "PostgreSQL", "Bootstrap 5", "Chart.js", "FullCalendar"],
-    demo: null,
+    demo: "https://team-todo-vxml.onrender.com/",
     code: "https://github.com/68Weezky/team_todo",
   },
   {
@@ -110,10 +106,19 @@ export const PROJECTS = [
     thumb: "/media/hotel-mgt.webp",
     thumbAlt: "Hotel Management System Interface",
     title: "The Whitehouse Lounge",
-    desc: "A Django and PostgreSQL hotel management system for a Kenyan lodge, bar and conference venue, covering bookings, billing with VAT, bar POS and stock, event scheduling, M-Pesa payments and reports, with role-based access and 97% test coverage.",
-    tags: ["Python", "Django", "PostgreSQL", "HTMX", "Alpine.js", "Tailwind CSS", "Chart.js", "pytest"],
+    desc: "Comprehensive hotel management system for reservations, guest services, and operations.",
+    tags: ["Python", "Django", "PostgreSQL"],
     demo: null,
-    code: "https://github.com/68Weezky/whl",
+    code: "https://github.com/68Weezky/hotelmgt",
+  },
+  {
+    thumb: "/media/ecm.webp",
+    thumbAlt: "Again, Please - Secondhand Sportswear Online Store",
+    title: "Again, Please",
+    desc: "Headless e-commerce storefront for a curated secondhand sportswear shop. Features Shopify Storefront API integration with hosted checkout, faceted filtering and search, one-of-a-kind inventory handling with live sold-out states, a server-side cart, favorites without an account, and a demo mode with sample products.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Shopify Storefront API", "Zod", "Vitest", "Playwright", "Vercel"],
+    demo: null,
+    code: "https://github.com/68Weezky/ecm",
   },
   {
     thumb: "/media/jobkonekt.webp",
